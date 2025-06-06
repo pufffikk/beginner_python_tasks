@@ -3,14 +3,13 @@ import random
 
 def play(tips=False):
     secret_number = random.randint(1, 10)
-    guess = None
     attempts = 0
     max_attempts = 10
 
-    while guess != secret_number:
+    while True:
         try:
-            guess = int(input("Guess a number between 1 and 10: "))
             attempts += 1
+            guess = int(input("Guess a number between 1 and 10: "))
             if guess < 1 or guess > 10:
                 print("Number must be between 1 and 10.")
                 continue
@@ -31,11 +30,15 @@ def play(tips=False):
             print("Enter a number please!")
 
 
+def is_yes(text):
+    return text.strip().lower() in {"yes", "y"}
+
+
 while True:
-    if input("Do you want to play with tips? (yes/no): ").strip().lower() == "yes":
+    if is_yes(input("Do you want to play with tips? (yes/no): ")):
         play(True)
     else:
         play()
-    if input("Play again? (yes/no): ").strip().lower() != "yes":
+    if not is_yes(input("Play again? (yes/no): ")):
         print("Thanks for playing!")
         break
